@@ -1,0 +1,35 @@
+
+h1{
+    text-align: center;
+    color: rgba(26,26,26,.7);
+
+}
+.row{
+    text-align: center;
+
+}
+
+.our_team {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: left;
+    color: rgba(26,26,26,.7);
+}
+
+.our_team img {
+    width: 350px;
+}
+
+.button {
+
+    font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    background-color: #272727;
+    border-color: #272727;
+}
+
