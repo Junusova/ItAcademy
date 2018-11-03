@@ -12,12 +12,107 @@ button {
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
+    position: relative;
+    left: 1190px;
 }
-.img {
-    left: 0px;
-    top: 0.2px;
-    width: 500px;
+
+.blog{
+    padding: 10px 10px;
+    color: #020e2c;
+    background: white;
+    border-radius: 300px;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    left: 1020px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    line-height: normal;
+}
+
+.team{
+    padding: 10px 10px;
+    color: #020e2c;
+    border-radius: 300px;
+    background: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    left: 850px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    line-height: normal;
+
+}
+
+.news{
+    padding: 10px 10px;
+    color: #020e2c;
+    border-radius: 300px;
+    background: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    left: 680px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    line-height: normal;
+
+}
+
+.about{
+    padding: 10px 10px;
+    color: #020e2c;
+    border-radius: 300px;
+    background: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    left: 500px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    line-height: normal;
+}
+
+.logo3 {
+    background: url("picture/riley_lava.jpg");
+    width: 100%;
+    height: 200px;
+    background-position-y: 536px;
+    background-position-x: -619px;
+    background-size: 1910px;
+}
+
+.block-content{
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    letter-spacing: 0px;
+    line-height: 1.6em;
+    color: rgba(26,26,26,.7);
+}
+
+.content{
+    font-weight: 300;
+    font-style: normal;
+    font-size: 28px;
+    letter-spacing: 0px;
+    text-transform: none;
+    line-height: 1.2em;
+    display: block;
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+
+.logo2{
+    left: 0;
+    right: 0;
+    top: 100px;
+    width: 1250px;
     height: 150px;
+
+    position: relative;
 
 }
 
