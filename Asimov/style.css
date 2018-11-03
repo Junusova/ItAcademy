@@ -1,0 +1,28 @@
+
+button {
+    cursor: pointer;
+}
+
+.join{
+    padding: 10px 10px;
+    border: 2px solid #020e2c;
+    color: #020e2c;
+    background: white;
+    border-radius: 300px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.img {
+    left: 0px;
+    top: 0.2px;
+    width: 500px;
+    height: 150px;
+
+}
+
+.join:hover {
+    color: white;
+    background: blue;
+
+}
