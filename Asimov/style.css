@@ -116,6 +116,13 @@ button {
 
 }
 
+.contentPic{
+    padding-left: 350px;
+    padding-right: 170px;
+
+}
+
+
 .join:hover {
     color: white;
     background: blue;
