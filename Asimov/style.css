@@ -147,11 +147,9 @@ h2 {
 
 .second-content{
     border: 0;
-    line-height: 0;
     text-align: center;
     position: relative;
     overflow: hidden;
-    font-family: proxima-nova;
     font-weight: 400;
     font-style: normal;
     font-size: 18px;
