@@ -116,12 +116,65 @@ button {
 
 }
 
-.contentPic{
+.image {
+    position:relative;
     padding-left: 350px;
     padding-right: 170px;
-
 }
 
+h2 {
+    position : absolute;
+    top	: 200px;
+    left:450px;
+    width:100%;
+    color: white;
+    size: A4;
+}
+
+.block-content{
+    color: rgba(26, 26, 26, 0.7);
+    display: block;
+    font-size: 18px;
+    font-style: normal;
+    font-weight:400;
+    height: 314.125px;
+    letter-spacing: normal;
+    line-height: 28.8px;
+    text-size-adjust: 100%;
+    width: 956px;
+    -webkit-font-smoothing: subpixel-antialiased;
+;
+    margin-bottom:
+            0px
+;
+    margin-left:
+            0px
+;
+    margin-right:
+            0px
+;
+    margin-top:
+            0px
+;
+    padding-bottom:
+            0px
+;
+    padding-left:
+            32px
+;
+    padding-right:
+            32px
+;
+    padding-top:
+            32px
+;
+    text-align:
+            center
+;
+    text-size-adjust:
+            100%
+;
+}
 
 .join:hover {
     color: white;
