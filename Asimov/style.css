@@ -185,7 +185,9 @@ h2 {
     max-width:2500px;
 }
 
-
+.thumb-image {
+    max-width: 1020px;
+}
 /*.second-content{*/
     /*border: 0;*/
     /*text-align: center;*/
