@@ -74,152 +74,125 @@
 </html>
 
 
+
+
 import java.util.Scanner;
 
-public class Diffie_Hellman {
-public static void main(String args[])
-{
-Scanner sc=new Scanner(System.in);
-System.out.println("Enter modulo(p)");
-int p=sc.nextInt();
-System.out.println("Enter primitive root of "+p);
-int g=sc.nextInt();
-System.out.println("Choose 1st secret no(Alice)");
-int a=sc.nextInt();
-System.out.println("Choose 2nd secret no(BOB)");
-int b=sc.nextInt();
+public class ZeroKnowledge {
 
-int A = (int)Math.pow(g,a)%p;
-int B = (int)Math.pow(g,b)%p;
-
-int S_A = (int)Math.pow(B,a)%p;
-int S_B =(int)Math.pow(A,b)%p;
-
-if(S_A==S_B)
-{
-System.out.println("ALice and Bob can communicate with each other!!!");
-System.out.println("They share a secret no = "+S_A);
+public long power(long x, long y, long p) {
+long res = 1;
+x = x % p;
+while (y > 0) {
+if ((y & 1) == 1)
+res = (res * x) % p;
+y = y >> 1;
+x = (x * x) % p;
 }
-
-else
-{
-System.out.println("ALice and Bob cannot communicate with each other!!!");
-}
-}
-
+return res;
 }
 
 
+// 23, 1237
+public static void main(String[] args) {
+Alice alice = new Alice();
+Bob bob = new Bob();
+Scanner sc = new Scanner(System.in);
+System.out.println("Choose generator g: ");
+int g = sc.nextInt();
+System.out.println("Choose prime p: ");
+int  p = sc.nextInt();
+//calculate primeNumber:
+long y = alice.calculateY(g, p);
+bob.setPrimeNumber(y);
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-import java.util.Random;
+//Iterations:
+System.out.println("No. of rounds of checking:");
+int iterations = sc.nextInt();
+alice.peggyKnows(g, p, iterations, bob);
 
-public class Fiat_Shamir {
-public static void main(String[] args){
-BigInteger p = BigInteger.probablePrime(4, new Random());
-
-BigInteger q = BigInteger.probablePrime(4, new Random());
-
-System.out.println("p: " + p.toString());
-System.out.println("q: " + q.toString());
-
-int k = 3;  // Receive k
-
-BigInteger trustedN = p.multiply(q);
-
-System.out.println("n: " + trustedN.toString());
-
-List<BigInteger> randomInts = new ArrayList<>();    //s1,s2...sk
-    BitSet randomBits = new BitSet(k);  // b1,b2..bk
-    List<BigInteger> listV = new ArrayList<>();
-
-        Random rand = new Random();
-
-        /*
-        Choose k positive numbers less than trustedN.
-        Choose k bits 0 or 1
-        */
-        System.out.print("random s: ");
-        for (int i = 0; i < k; i++) {
+}
+}
 
 
-        BigInteger si = new BigInteger(trustedN.bitLength() + 1, rand).mod(trustedN);
-
-        while (si.gcd(trustedN).intValue() != 1){
-        si = new BigInteger(trustedN.bitLength() + 1, rand).mod(trustedN);
-        }
-        // Generate random big ints less than trustedN
-        randomInts.add(si);
-
-        randomBits.set(i, rand.nextBoolean());
-        // (-1)^bi
-        System.out.print(randomInts.get(i) + " " + randomBits.get(i) + " ");
-        BigInteger minus1pow = (((new BigInteger("-1")).pow(randomBits.get(i) ? 1 : 0)));
-
-        // (s^2)^(-1)
-        BigInteger randomIntPow = minus1pow.multiply(randomInts.get(i).pow(2)).modInverse(trustedN);
-
-        // vi = (-1)^bi * (s^2)^(-1)//            listV.add((minus1pow.multiply(randomIntPow)).mod(trustedN));
-        listV.add(randomIntPow);
-        }
-        System.out.print("\nlist v: ");
-        for (BigInteger bi:
-        listV) {
-        System.out.print(bi.toString() + " ");
-        }
-        System.out.println();
-        // Random r
-        BigInteger randomR = new BigInteger(trustedN.bitLength() + 1, rand).mod(trustedN);
-        System.out.println("r: " + randomR.toString());
-        // Random bit index
-        int bitIndex = (int) (Math.random() * ( randomBits.length()  ));
-        System.out.println("bitIndex: " + bitIndex + " bit value: " + randomBits.get(bitIndex));
-        // Calculate x//        BigInteger x = ((new BigInteger("-1")).pow(randomBits.get(bitIndex) ? 1 : 0).mod(trustedN)).multiply((randomR.pow(2)).mod(trustedN)).mod(trustedN);
-        BigInteger x = (((new BigInteger("-1")).pow(randomBits.get(bitIndex) ? 1 : 0)).multiply((randomR.pow(2)))).mod(trustedN);
-        // Let pretend it was randomly selected vector (e1,e2,e3)
-        String eBits = "100";
+public class Alice {
+private static final long x = 74;
+//predecided x which is the hidden information.
 
 
-        BigInteger totalMultS = new BigInteger("1");
-        for (int i = 0; i < k; i++) {
-        totalMultS = totalMultS
-        .multiply(randomInts.get(i).pow(eBits.charAt(i) == '1' ? 1 : 0));
-        }
+public long calculateY(int g, int p) {
+ZeroKnowledge zk = new ZeroKnowledge();
+return (int) zk.power(g, x, p);
+}
 
-        BigInteger y = totalMultS.multiply(randomR.mod(trustedN)).mod(trustedN);
+public void peggyKnows(int g, int p, int i, Bob bob) {
+ZeroKnowledge zk = new ZeroKnowledge();
+System.out.println();
+for (int j = 1; j <= i; j++) {
+System.out.println("Round: " + j);
 
-        System.out.println("y: " + y.toString());
+//choose random r
+int r = (int) (Math.random() * 1000);
+System.out.println("Alice chooses random r :" + r);
+long C = zk.power(g, r, p);
+System.out.println("Alice send to Bob computed C =" + g + "^" + r + " mod " + p + "  = " + C);
+bob.sendC(C);
+
+//Bob chooses request
+int request = bob.request();
+System.out.println("Bob is Requesting for :" + request);
+}
+}
+
+}
 
 
-        BigInteger totalMultV = new BigInteger("1");
+public class Bob {
 
-        for (int i = 0; i < k; i++) {
-        totalMultV = totalMultV
-        .multiply(listV.get(i).pow(eBits.charAt(i) == '1' ? 1 : 0));
-        }
+private long primeNumber, message;
 
-        totalMultV = totalMultV.mod(trustedN);
-        BigInteger z = (y.pow(2).mod(trustedN)).multiply(totalMultV).mod(trustedN);
+public void setPrimeNumber(long primeNumber) {
+System.out.println("Bob receives primeNumber = " + primeNumber);
+this.primeNumber = (int) primeNumber;
+}
 
-        System.out.println("total mult v: " + totalMultV);
+public void sendC(long message) {
+System.out.println("Bob receives message = " + message);
+this.message = message;
+}
 
+public int request() {
+//request = 0 implies Bob is asking for r
+//request = 1 implies Bob is asking for (x+r)mod(p-1)
+return ((int) Math.round(Math.random()));
+}
 
-        if ((z.toString().equals(x.toString()) || z.toString().equals(x.negate().mod(trustedN).toString()))
-        && !z.toString().equals("0")){
-        System.out.println("SUCCESS");
+public boolean checkresponse(int g, int r, int p, long val, int request) {
+ZeroKnowledge zk = new ZeroKnowledge();
 
-        }
-        else {
-        System.out.println("FAIL");
+if (request == 0) {
+long newC = zk.power(g, val, p);
+System.out.println("Bob's New message = " + g + "^" + val + " mod " + p + "  = " + newC);
+if (newC == message)
+System.out.println("Alright");      //Alice is not bluffing.
+else {
+System.out.println("Alice lies");
+return false;
+}
+return true;
+} else {
+long sentMessage = zk.power(g, val, p);
 
-        System.out.println("x: " + x.toString());
-        System.out.println("z: " + z.toString());
+long matchWith = zk.power(message * primeNumber, 1, p);
 
-        }
+System.out.println("Bob's New message:" + sentMessage + " which should be equal to (" + message + "x" + primeNumber + ") mod " + p + " = " + (matchWith));
+if (sentMessage == matchWith) {
+System.out.println("Alright");    //Alice is not bluffing.
+return true;
+} else
+System.out.println("Alice lies");
+return false;
+}
+}
 
-        }
-        }
-
+}
